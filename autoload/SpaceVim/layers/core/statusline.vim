@@ -262,15 +262,17 @@ function! SpaceVim#layers#core#statusline#get(...) abort
           \ . '%#SpaceVim_statusline_b# %{getcwd()}%#SpaceVim_statusline_b_SpaceVim_statusline_c#' . s:lsep
           \ . '%#SpaceVim_statusline_c# %{SpaceVim#plugins#flygrep#lineNr()}'
   elseif &filetype ==# 'TransientState'
-    return '%#SpaceVim_statusline_a# Transient State %#SpaceVim_statusline_a_SpaceVim_statusline_b#'
+    return '%#SpaceVim_statusline_a# Transient State %#SpaceVim_statusline_a_SpaceVim_statusline_b#' . s:rsep
   elseif &filetype ==# 'HelpDescribe'
-    return '%#SpaceVim_statusline_a# HelpDescribe %#SpaceVim_statusline_a_SpaceVim_statusline_b#'
+    return '%#SpaceVim_statusline_a# HelpDescribe %#SpaceVim_statusline_a_SpaceVim_statusline_b#' . s:rsep
   elseif &filetype ==# 'SpaceVimRunner'
-    return '%#SpaceVim_statusline_a# Runner %#SpaceVim_statusline_a_SpaceVim_statusline_b# %{SpaceVim#plugins#runner#status()}'
+    return '%#SpaceVim_statusline_a# Runner %#SpaceVim_statusline_a_SpaceVim_statusline_b#' . s:rsep
+          \ . ' %{SpaceVim#plugins#runner#status()}'
   elseif &filetype ==# 'VimMailClient'
-    return '%#SpaceVim_statusline_a# VimMail %#SpaceVim_statusline_a_SpaceVim_statusline_b# %{mail#client#win#status().dir}'
+    return '%#SpaceVim_statusline_a# VimMail %#SpaceVim_statusline_a_SpaceVim_statusline_b#' . s:rsep
+          \ . ' %{mail#client#win#status().dir}'
   elseif &filetype ==# 'SpaceVimQuickFix'
-    return '%#SpaceVim_statusline_a# SpaceVimQuickFix %#SpaceVim_statusline_a_SpaceVim_statusline_b#'
+    return '%#SpaceVim_statusline_a# SpaceVimQuickFix %#SpaceVim_statusline_a_SpaceVim_statusline_b#' . s:rsep
   endif
   if a:0 > 0
     return s:active()
