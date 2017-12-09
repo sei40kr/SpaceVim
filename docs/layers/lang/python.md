@@ -7,14 +7,19 @@ description: "This layer is for Python development, provide autocompletion, synt
 
 <!-- vim-markdown-toc GFM -->
 
-- [Description](#description)
-- [Features](#features)
+* [Description](#description)
+* [Layer configuration](#layer-configuration)
+* [Features](#features)
 
 <!-- vim-markdown-toc -->
 
 ## Description
 
 This layer is for Python development.
+
+## Layer configuration
+
+`use_lsp`: Use language server if possible. The default value is `0`.
 
 ## Features
 
