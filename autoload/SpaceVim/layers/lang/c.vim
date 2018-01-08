@@ -78,9 +78,11 @@ endfunction
 
 function! SpaceVim#layers#lang#c#config() abort
   call SpaceVim#plugins#runner#reg_runner('c', ['gcc -o #TEMP# %s', '#TEMP#'])
-  call SpaceVim#mapping#space#regesit_lang_mappings('c', funcref('s:language_specified_mappings'))
+  call SpaceVim#mapping#space#regesit_lang_mappings('c', funcref(
+        \ 's:language_specified_mappings', ['c']))
   call SpaceVim#plugins#runner#reg_runner('cpp', ['g++ -o #TEMP# %s', '#TEMP#'])
-  call SpaceVim#mapping#space#regesit_lang_mappings('cpp', funcref('s:language_specified_mappings'))
+  call spacevim#mapping#space#regesit_lang_mappings('cpp', funcref(
+        \ 's:language_specified_mappings', ['cpp']))
   call SpaceVim#plugins#projectmanager#reg_callback(funcref('s:update_clang_flag'))
   if executable('clang')
     let g:neomake_c_enabled_makers = ['clang']
@@ -109,12 +111,12 @@ function! SpaceVim#layers#lang#c#set_variable(var) abort
   endif
 endfunction
 
-function! s:language_specified_mappings() abort
+function! s:language_specified_mappings(ft) abort
 
   call SpaceVim#mapping#space#langSPC('nmap', ['l','r'],
         \ 'call SpaceVim#plugins#runner#open()',
         \ 'execute current file', 1)
-  if SpaceVim#layers#lsp#check_filetype('python')
+  if SpaceVim#layers#lsp#check_filetype(a:ft)
     nnoremap <silent><buffer> K :call SpaceVim#lsp#show_doc()<CR>
 
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'd'],
@@ -158,7 +160,7 @@ elseif g:spacevim_enable_ale
     " g:ale_c_clang_options
     for ft in a:fts
       let g:ale_{ft}_clang_options = ' -fsyntax-only -Wall -Wextra -I./ ' . join(a:argv, ' ')
-      let g:ale_{ft}_clang_executabl = s:clang_executable
+      let g:ale_{ft}_clang_executable = s:clang_executable
     endfor
   endfunction
 else
